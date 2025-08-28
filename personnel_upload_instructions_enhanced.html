@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnel CSV Upload Instructions | PCG CG-12</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #002147 0%, #004080 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #002147;
+            border-bottom: 2px solid #004080;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            color: #004080;
+            margin: 20px 0 10px 0;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-color: #bee5eb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .download-section {
+            background: #e8f5e8;
+            border: 2px dashed #28a745;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .steps {
+            counter-reset: step-counter;
+        }
+
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 4px solid #004080;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            background: #004080;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .step h4 {
+            margin-bottom: 10px;
+            color: #002147;
+        }
+
+        ul, ol {
+            margin: 10px 0 10px 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-file-upload"></i> Personnel CSV Upload Instructions</h1>
+            <p>Philippine Coast Guard CG-12 Training Management System</p>
+        </div>
+
+        <div class="content">
+            <a href="manage_personnel.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Personnel Management</a>
+
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <strong>Important:</strong> This bulk upload feature is designed to help administrators efficiently manage large personnel datasets. Please follow these instructions carefully to ensure successful data import.
+            </div>
+
+            <!-- Download Templates Section -->
+            <div class="section">
+                <h2><i class="fas fa-download"></i> Download Templates</h2>
+                <div class="download-section">
+                    <h3>Get the Official CSV Template</h3>
+                    <p>Download the pre-formatted template to ensure your data matches the required format.</p>
+                    <a href="personnel_upload_template_enhanced.csv" class="btn" download>
+                        <i class="fas fa-download"></i> Download Enhanced CSV Template
+                    </a>
+                    <a href="personnel_upload_template.csv" class="btn btn-secondary" download>
+                        <i class="fas fa-download"></i> Download Standard Template
+                    </a>
+                </div>
+            </div>
+
+            <!-- Field Requirements Section -->
+            <div class="section">
+                <h2><i class="fas fa-table"></i> Field Requirements</h2>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Required Fields:</strong> The following fields are mandatory and cannot be left empty: RANK, LASTNAME, FIRSTNAME, SERIAL_NUMBER, UNIT_CODE, CATEGORY
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Required</th>
+                            <th>Format/Values</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="code">RANK</span></td>
+                            <td>✅ Yes</td>
+                            <td>Commander, Lieutenant, Lieutenant Junior Grade, Chief Petty Officer, Petty Officer 1/2/3, Seaman</td>
+                            <td>Lieutenant</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">LASTNAME</span></td>
+                            <td>✅ Yes</td>
+                            <td>Text, no special characters</td>
+                            <td>Dela Cruz</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">FIRSTNAME</span></td>
+                            <td>✅ Yes</td>
+                            <td>Text, no special characters</td>
+                            <td>Juan</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">MI</span></td>
+                            <td>❌ No</td>
+                            <td>1-2 letters, Middle Initial</td>
+                            <td>A</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">SERIAL_NUMBER</span></td>
+                            <td>✅ Yes</td>
+                            <td>Unique identifier, format: CG-YYYY-###</td>
+                            <td>CG-2023-001</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">UNIT_CODE</span></td>
+                            <td>✅ Yes</td>
+                            <td>CG-HQ, CG-NCR, CG-DV, CG-DM, CG-SD, CG-SB, CG-SC, CG-SM, CG-SP</td>
+                            <td>CG-NCR</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">SUB_UNIT</span></td>
+                            <td>❌ No</td>
+                            <td>Text, department/division name</td>
+                            <td>Operations Division</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">CATEGORY</span></td>
+                            <td>✅ Yes</td>
+                            <td>Officer, Non-Officer</td>
+                            <td>Officer</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">ORIGINAL_ENLISTMENT</span></td>
+                            <td>❌ No</td>
+                            <td>Date format: YYYY-MM-DD</td>
+                            <td>2020-03-15</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">DATE_ENTERED_SERVICE</span></td>
+                            <td>❌ No</td>
+                            <td>Date format: YYYY-MM-DD</td>
+                            <td>2020-03-15</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">LAST_PROMOTION_DATE</span></td>
+                            <td>❌ No</td>
+                            <td>Date format: YYYY-MM-DD</td>
+                            <td>2023-06-15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Category-Specific Fields -->
+            <div class="section">
+                <h2><i class="fas fa-users"></i> Category-Specific Fields</h2>
+                
+                <h3>Non-Officer Personnel</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="code">CGMC_CGNOC_CLASS</span></td>
+                            <td>Coast Guard Maritime College / Coast Guard Non-Officer Course Class</td>
+                            <td>CGMC Class 2020-01</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">SPECIALIZATION</span></td>
+                            <td>Professional specialization or expertise area</td>
+                            <td>Operations Specialization</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">FUNCTIONAL_COURSE</span></td>
+                            <td>Functional or technical course completed</td>
+                            <td>Maritime Safety Administration</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">BLMC_ALMC_CGNOAC</span></td>
+                            <td>Basic/Advanced Leadership Management Course or Coast Guard Non-Officer Advanced Course</td>
+                            <td>BLMC Class 2019-02</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">CGNOSEC</span></td>
+                            <td>Coast Guard Non-Officer Senior Executive Course</td>
+                            <td>CGNOSEC Class 2021-01</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">COMP_RET</span></td>
+                            <td>Compulsory Retirement status</td>
+                            <td>Active</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Officer Personnel</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="code">CGOC_CLASS</span></td>
+                            <td>Coast Guard Officer Course Class</td>
+                            <td>CGOC Class 2018-01</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">CGSCC_CLASS</span></td>
+                            <td>Coast Guard Station Commanders Course Class</td>
+                            <td>CGSCC Class 2020-02</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">CGSC_CLASS</span></td>
+                            <td>Coast Guard Staff Course Class</td>
+                            <td>CGSC Class 2019-01</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">CGEC_CLASS</span></td>
+                            <td>Coast Guard Executive Course Class</td>
+                            <td>CGEC Class 2022-01</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">THIRD_LEVEL_CAREER</span></td>
+                            <td>Third Level Career Course</td>
+                            <td>Third Level Career Course 2020</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Upload Process Section -->
+            <div class="section">
+                <h2><i class="fas fa-upload"></i> Upload Process</h2>
+                
+                <div class="steps">
+                    <div class="step">
+                        <h4>Prepare Your Data</h4>
+                        <p>Download the CSV template and fill in your personnel data. Ensure all required fields are completed and follow the specified formats.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Validate Data Format</h4>
+                        <p>Double-check that:</p>
+                        <ul>
+                            <li>All dates are in YYYY-MM-DD format</li>
+                            <li>Serial numbers are unique</li>
+                            <li>Category values are exactly "Officer" or "Non-Officer"</li>
+                            <li>Unit codes match the accepted values</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Save as CSV</h4>
+                        <p>Save your file in CSV format. If using Excel, choose "Save As" and select "CSV (Comma delimited)" format.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Upload File</h4>
+                        <p>In the Personnel Management page, click "Choose File", select your CSV file, and click "Upload & Update".</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Review Results</h4>
+                        <p>The system will process your file and display the number of successful records and any errors encountered.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Issues Section -->
+            <div class="section">
+                <h2><i class="fas fa-exclamation-triangle"></i> Common Issues & Solutions</h2>
+                
+                <div class="alert alert-danger">
+                    <h4>Duplicate Serial Numbers</h4>
+                    <p>Each personnel must have a unique serial number. If you're updating existing records, the system will update the existing record with the same serial number.</p>
+                </div>
+
+                <div class="alert alert-warning">
+                    <h4>Date Format Errors</h4>
+                    <p>All dates must be in YYYY-MM-DD format. Examples: 2023-03-15, 2020-12-01. Avoid formats like MM/DD/YYYY or DD-MM-YYYY.</p>
+                </div>
+
+                <div class="alert alert-info">
+                    <h4>Category-Specific Fields</h4>
+                    <p>Fill in the appropriate training fields based on the Category:</p>
+                    <ul>
+                        <li><span class="highlight">Officers:</span> Use CGOC_CLASS, CGSCC_CLASS, CGSC_CLASS, etc.</li>
+                        <li><span class="highlight">Non-Officers:</span> Use CGMC_CGNOC_CLASS, SPECIALIZATION, FUNCTIONAL_COURSE, etc.</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-success">
+                    <h4>Large File Uploads</h4>
+                    <p>For files with more than 100 records, consider splitting them into smaller batches to ensure reliable processing.</p>
+                </div>
+            </div>
+
+            <!-- Support Section -->
+            <div class="section">
+                <h2><i class="fas fa-question-circle"></i> Need Help?</h2>
+                <p>If you encounter issues or need assistance with the upload process:</p>
+                <ul>
+                    <li>Review the error messages displayed after upload</li>
+                    <li>Check your data against the template format</li>
+                    <li>Ensure all required fields are filled</li>
+                    <li>Contact your system administrator for technical support</li>
+                </ul>
+            </div>
+
+            <div class="text-center" style="margin-top: 30px;">
+                <a href="manage_personnel.php" class="btn">
+                    <i class="fas fa-arrow-left"></i> Return to Personnel Management
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
