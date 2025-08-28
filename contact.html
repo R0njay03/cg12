@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | PCG CG-12</title>
+  <link rel="stylesheet" href="style-enhanced.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .contact-hero {
+      background: linear-gradient(135deg, rgba(0, 33, 71, 0.9), rgba(0, 64, 128, 0.8));
+      color: white;
+      padding: 120px 0 80px;
+      margin-top: 90px;
+      text-align: center;
+    }
+    
+    .contact-hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .contact-hero p {
+      font-size: 1.2em;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .contact-content {
+      padding: 80px 0;
+      background: white;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .contact-info {
+      background: #f8f9fa;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .contact-info h3 {
+      color: #002147;
+      margin-bottom: 30px;
+      font-size: 1.8em;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .contact-item:hover {
+      transform: translateX(10px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2em;
+      flex-shrink: 0;
+    }
+    
+    .contact-details h4 {
+      color: #002147;
+      margin-bottom: 8px;
+      font-size: 1.2em;
+    }
+    
+    .contact-details p {
+      color: #666;
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    .contact-details a {
+      color: #c8102e;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .contact-details a:hover {
+      color: #002147;
+    }
+    
+    .contact-form {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border-top: 4px solid #002147;
+    }
+    
+    .contact-form h3 {
+      color: #002147;
+      margin-bottom: 30px;
+      font-size: 1.8em;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #002147;
+      font-weight: 600;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #002147;
+      box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(200, 16, 46, 0.3);
+    }
+    
+    .office-hours {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 80px 0;
+    }
+    
+    .office-hours-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    
+    .office-hours h3 {
+      color: #002147;
+      margin-bottom: 40px;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .hours-card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .hours-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    
+    .hours-card h4 {
+      color: #002147;
+      margin-bottom: 20px;
+      font-size: 1.3em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .hours-card p {
+      color: #666;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    
+    .hours-card .highlight {
+      color: #c8102e;
+      font-weight: 600;
+    }
+    
+    .map-section {
+      padding: 80px 0;
+      background: white;
+    }
+    
+    .map-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .map-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .map-header h3 {
+      color: #002147;
+      margin-bottom: 15px;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .map-container {
+      background: #f8f9fa;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .map-placeholder {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 80px 40px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .map-placeholder i {
+      font-size: 4em;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    
+    .map-placeholder h4 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+    
+    .map-placeholder p {
+      opacity: 0.9;
+      font-size: 1.1em;
+    }
+    
+    .directions-btn {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .directions-btn:hover {
+      background: linear-gradient(135deg, #f2b705 0%, #d4a004 100%);
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-hero h1 {
+        font-size: 2.2em;
+      }
+      
+      .hours-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <img src="pcg_logo.png" class="logo" alt="PCG Logo" />
+      <div class="title-text">
+        <h1>Deputy Chief of Coast Guard Staff for Education and Training</h1>
+        <h2>Philippine Coast Guard | CG-12</h2>
+      </div>
+    </div>
+    
+    <nav class="navbar">
+      <a href="index-improved.html"><i class="fas fa-home"></i> Home</a>
+      <a href="course-catalog.php"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a>
+      <a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <div class="header-right">
+      <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
+    </div>
+  </header>
+
+  <section class="contact-hero">
+    <div class="container">
+      <h1><i class="fas fa-envelope"></i> Contact Us</h1>
+      <p>Get in touch with the PCG CG-12 Education & Training team. We're here to help with your training needs and inquiries.</p>
+    </div>
+  </section>
+
+  <section class="contact-content">
+    <div class="contact-grid">
+      <!-- Contact Information -->
+      <div class="contact-info">
+        <h3><i class="fas fa-info-circle"></i> Contact Information</h3>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Email Address</h4>
+            <p><a href="mailto:cg12@coastguard.gov.ph">cg12@coastguard.gov.ph</a></p>
+            <p>For general inquiries and training information</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Phone Number</h4>
+            <p><a href="tel:+639152413583">+63915 2413 583</a></p>
+            <p>Available during office hours</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-fax"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Fax Number</h4>
+            <p>+63 2 8527 8481</p>
+            <p>For official documents and correspondence</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Office Address</h4>
+            <p>Headquarters, Philippine Coast Guard<br>
+               Port Area, Manila 1018<br>
+               Philippines</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Department Head</h4>
+            <p>Deputy Chief of Coast Guard Staff<br>
+               for Education and Training (CG-12)</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contact Form -->
+      <div class="contact-form">
+        <h3><i class="fas fa-paper-plane"></i> Send us a Message</h3>
+        
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="rank">Rank/Position</label>
+            <input type="text" id="rank" name="rank" placeholder="e.g., LTJG, PO3, Civilian">
+          </div>
+          
+          <div class="form-group">
+            <label for="unit">Unit/Organization</label>
+            <input type="text" id="unit" name="unit" placeholder="e.g., CG District NCR, CG Station Batangas">
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <select id="subject" name="subject" required>
+              <option value="">Select a subject</option>
+              <option value="training-inquiry">Training Program Inquiry</option>
+              <option value="course-enrollment">Course Enrollment</option>
+              <option value="certification">Certification Request</option>
+              <option value="schedule">Training Schedule</option>
+              <option value="materials">Course Materials</option>
+              <option value="feedback">Feedback/Suggestions</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" required placeholder="Please provide details about your inquiry or request..."></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Office Hours Section -->
+  <section class="office-hours">
+    <div class="office-hours-content">
+      <h3><i class="fas fa-clock"></i> Office Hours & Availability</h3>
+      
+      <div class="hours-grid">
+        <div class="hours-card">
+          <h4><i class="fas fa-calendar-week"></i> Regular Office Hours</h4>
+          <p><span class="highlight">Monday - Friday:</span> 8:00 AM - 5:00 PM</p>
+          <p><span class="highlight">Saturday:</span> 8:00 AM - 12:00 PM</p>
+          <p><span class="highlight">Sunday:</span> Closed</p>
+        </div>
+        
+        <div class="hours-card">
+          <h4><i class="fas fa-phone-alt"></i> Phone Support</h4>
+          <p><span class="highlight">Monday - Friday:</span> 8:00 AM - 5:00 PM</p>
+          <p><span class="highlight">Emergency:</span> 24/7 Hotline Available</p>
+          <p><span class="highlight">Response Time:</span> Within 24 hours</p>
+        </div>
+        
+        <div class="hours-card">
+          <h4><i class="fas fa-envelope-open"></i> Email Response</h4>
+          <p><span class="highlight">Standard Inquiries:</span> 1-2 business days</p>
+          <p><span class="highlight">Training Requests:</span> 3-5 business days</p>
+          <p><span class="highlight">Urgent Matters:</span> Same day response</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="map-content">
+      <div class="map-header">
+        <h3><i class="fas fa-map-marked-alt"></i> Our Location</h3>
+        <p>Visit us at the Philippine Coast Guard Headquarters in Manila</p>
+      </div>
+      
+      <div class="map-container">
+        <div class="map-placeholder">
+          <i class="fas fa-map-marker-alt"></i>
+          <h4>Railroad, Bacharach Building II, 23rd St,</h4>
+          <p>Port Area, Manila 1018, Philippines</p>
+        </div>
+        <a href="https://www.google.com/maps/place/DCCGS+for+Education+and+Training,+CG12+OFFICE/@14.5852973,120.9729156,17z/data=!3m1!4b1!4m6!3m5!1s0x3397cb00288b6e07:0x82f4e97529b482f9!8m2!3d14.5852973!4d120.9729156!16s%2Fg%2F11wnzl8g3p?entry=ttu&g_ep=EgoyMDI1MDgwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="directions-btn">
+          <i class="fas fa-directions"></i> Get Directions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="pcg_logo.png" alt="PCG Logo" />
+          <h4>PCG CG-12</h4>
+        </div>
+        <p>Deputy Chief of Coast Guard Staff for Education and Training</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="course-catalog.php">Training Programs</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="login.html">Admin Login</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Training Categories</h4>
+        <ul>
+          <li><a href="course-catalog.php?type=local">Local Training</a></li>
+          <li><a href="course-catalog.php?type=foreign">Foreign Training</a></li>
+          <li><a href="course-catalog.php?type=unit">Unit/Interagency</a></li>
+          <li><a href="course-catalog.php">All Courses</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Contact Information</h4>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>cg12@coastguard.gov.ph</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+63915 2413 583</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Headquarters, Philippine Coast Guard<br>Port Area, Manila</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Philippine Coast Guard – Deputy Chief of Coast Guard Staff for Education and Training, CG-12 | All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      
+      // Get form data
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+      
+      // Simple validation
+      if (!data.firstName || !data.lastName || !data.email || !data.subject || !data.message) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      
+      // Simulate form submission
+      alert('Thank you for your message! We will respond within 1-2 business days.\n\nFor urgent matters, please call +63915 2413 583.');
+      
+      // Reset form
+      event.target.reset();
+    }
+    
+    // Add scroll effect to header
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Animate elements on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.contact-item, .hours-card, .contact-form').forEach(item => {
+      observer.observe(item);
+    });
+  </script>
+</body>
+</html>

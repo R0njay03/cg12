@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training Reports | PCG CG-12</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+
+    /* Enhanced Header */
+    .header {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid #c8102e;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.1) rotate(360deg);
+      box-shadow: 0 0 20px rgba(200, 16, 46, 0.5);
+    }
+
+    .title-text {
+      flex: 1;
+    }
+
+    .title-text h1 {
+      font-size: 1.8em;
+      font-weight: 600;
+      margin-bottom: 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .title-text h2 {
+      font-size: 1.1em;
+      font-weight: 400;
+      opacity: 0.9;
+      color: #f2b705;
+    }
+
+    /* Enhanced Navigation */
+    .navbar {
+      display: flex;
+      gap: 30px;
+      margin: 0 30px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      background: rgba(200, 16, 46, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-btn:hover {
+      background: linear-gradient(135deg, #f2b705 0%, #d4a004 100%);
+      transform: scale(1.05);
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #002147, #c8102e, #f2b705, #28a745);
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(0,33,71,0.05)"/><circle cx="80" cy="40" r="1" fill="rgba(200,16,46,0.05)"/><circle cx="40" cy="80" r="1.5" fill="rgba(242,183,5,0.05)"/></svg>') repeat;
+      animation: float 30s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(-100px) translateY(-100px); }
+    }
+
+    .page-header h1 {
+      color: #002147;
+      font-size: 3em;
+      margin-bottom: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-header p {
+      color: #666;
+      font-size: 1.3em;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-header .quick-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quick-link {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-link:hover {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(200, 16, 46, 0.3);
+    }
+
+    /* Enhanced Statistics Cards */
+    .stats-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+      padding: 35px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--card-color, #002147);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s;
+    }
+
+    .stat-card:hover::after {
+      left: 100%;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .stat-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--card-color, #002147) 0%, var(--card-color-light, #004080) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: white;
+      font-size: 2em;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .stat-card:hover .stat-icon {
+      transform: scale(1.1) rotate(360deg);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .stat-number {
+      font-size: 3em;
+      font-weight: bold;
+      color: var(--card-color, #002147);
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover .stat-number {
+      transform: scale(1.05);
+    }
+
+    .stat-label {
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 1em;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+
+    .stat-change {
+      font-size: 1em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .stat-change.positive {
+      color: #28a745;
+    }
+
+    .course-link {
+      background: rgba(0, 33, 71, 0.1);
+      color: var(--card-color, #002147);
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9em;
+      font-weight: 600;
+      margin-top: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .course-link:hover {
+      background: var(--card-color, #002147);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Enhanced Chart Containers */
+    .charts-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 35px;
+      margin-bottom: 50px;
+    }
+
+    .chart-container {
+      background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #002147, #c8102e, #f2b705);
+    }
+
+    .chart-container:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid #f8f9fa;
+    }
+
+    .chart-title {
+      color: #002147;
+      font-size: 1.4em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chart-period {
+      color: #666;
+      font-size: 0.95em;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-weight: 600;
+    }
+
+    .chart-canvas {
+      position: relative;
+      height: 350px;
+    }
+
+    .chart-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .chart-btn {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9em;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chart-btn:hover {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      transform: scale(1.05);
+    }
+
+    /* Interactive Philippines Map */
+    .map-section {
+      background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 50px;
+    }
+
+    .map-header {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .map-header h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.6em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .map-header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 1.1em;
+    }
+
+    .map-container {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0;
+      min-height: 600px;
+    }
+
+    .map-controls {
+      background: #f8f9fa;
+      padding: 20px;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .control-group label {
+      font-weight: 600;
+      color: #002147;
+      font-size: 0.9em;
+    }
+
+    .control-group select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: white;
+      font-size: 0.9em;
+    }
+
+    .map-btn {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .map-btn:hover {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      transform: scale(1.05);
+    }
+
+    .philippines-map {
+      background: white;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    #philippinesMap {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .region-path {
+      fill: #e3f2fd;
+      stroke: #002147;
+      stroke-width: 2;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .region-path:hover {
+      fill: #bbdefb;
+      stroke-width: 3;
+    }
+
+    .region-path.active {
+      fill: #2196f3;
+      stroke: #0d47a1;
+    }
+
+    .region-label {
+      font-size: 14px;
+      font-weight: bold;
+      fill: #002147;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    .unit-marker {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      stroke: white;
+      stroke-width: 2;
+    }
+
+    .unit-marker.ncr {
+      fill: #c8102e;
+    }
+
+    .unit-marker.luzon {
+      fill: #002147;
+    }
+
+    .unit-marker.visayas {
+      fill: #f2b705;
+    }
+
+    .unit-marker.mindanao {
+      fill: #28a745;
+    }
+
+    .unit-marker:hover {
+      transform: scale(1.3);
+      stroke-width: 3;
+    }
+
+    .unit-marker.active {
+      transform: scale(1.2);
+      stroke: #000;
+      stroke-width: 3;
+    }
+
+    .map-info-panel {
+      background: #f8f9fa;
+      border-left: 1px solid #e9ecef;
+      padding: 20px;
+    }
+
+    .info-content h4 {
+      color: #002147;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-content p {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .map-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: white;
+      border-radius: 5px;
+      border-left: 4px solid #002147;
+    }
+
+    .stat-label {
+      font-weight: 600;
+      color: #002147;
+    }
+
+    .stat-value {
+      font-weight: bold;
+      color: #28a745;
+      font-size: 1.1em;
+    }
+
+    .legend-title {
+      font-size: 12px;
+      font-weight: bold;
+      fill: #002147;
+    }
+
+    .legend-text {
+      font-size: 10px;
+      fill: #666;
+    }
+
+    /* Enhanced Data Table */
+    .data-table-section {
+      background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 50px;
+    }
+
+    .table-header {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-header h3 {
+      margin: 0;
+      font-size: 1.6em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .export-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1em;
+    }
+
+    .export-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 18px 25px;
+      text-align: left;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .data-table th {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #002147;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.95em;
+      letter-spacing: 0.5px;
+    }
+
+    .data-table tr {
+      transition: all 0.3s ease;
+    }
+
+    .data-table tr:hover {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%);
+      transform: scale(1.01);
+    }
+
+    .data-table .number {
+      font-weight: 700;
+      color: #002147;
+      font-size: 1.1em;
+    }
+
+    /* Course Links Section */
+    .course-links-section {
+      background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 50px;
+    }
+
+    .course-links-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .course-links-header h3 {
+      color: #002147;
+      font-size: 2em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .course-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .course-category {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border-top: 4px solid var(--category-color, #002147);
+    }
+
+    .course-category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .course-category h4 {
+      color: var(--category-color, #002147);
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .course-category p {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .course-category-btn {
+      background: linear-gradient(135deg, var(--category-color, #002147) 0%, var(--category-color-light, #004080) 100%);
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .course-category-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, #002147 0%, #001a3a 100%);
+      color: white;
+      padding: 50px 0 30px;
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .footer p {
+      opacity: 0.9;
+      margin: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      font-size: 1.1em;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+      
+      .page-header h1 {
+        font-size: 2.2em;
+      }
+      
+      .charts-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .chart-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .course-links-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .map-container {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      
+      .map-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .control-group {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .philippines-map {
+        padding: 10px;
+      }
+      
+      #philippinesMap {
+        width: 100%;
+        height: 400px;
+      }
+      
+      .map-info-panel {
+        border-left: none;
+        border-top: 1px solid #e9ecef;
+      }
+    }
+
+    /* Enhanced Animations */
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease forwards;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Enhanced Header -->
+  <header class="header">
+    <div class="header-content">
+      <img src="pcg_logo.png" class="logo" alt="PCG Logo" />
+      <div class="title-text">
+        <h1>Deputy Chief of Coast Guard Staff for Education and Training</h1>
+        <h2>Philippine Coast Guard | CG-12</h2>
+      </div>
+    </div>
+    
+    <nav class="navbar">
+      <a href="index-improved.html"><i class="fas fa-home"></i> Home</a>
+      <a href="course-catalog.php"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="reports.html" class="active"><i class="fas fa-chart-bar"></i> Reports</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <div class="header-right">
+      <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Enhanced Page Header -->
+      <div class="page-header fade-in">
+        <h1><i class="fas fa-chart-line"></i> Training Reports & Analytics</h1>
+        <p>Comprehensive training statistics and performance metrics for PCG CG-12 education programs</p>
+        <div class="quick-links">
+          <a href="course-catalog.php" class="quick-link">
+            <i class="fas fa-graduation-cap"></i> View All Courses
+          </a>
+          <a href="admin-dashboard-enhanced.php" class="quick-link">
+            <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+          </a>
+          <a href="#course-links" class="quick-link">
+            <i class="fas fa-link"></i> Course Categories
+          </a>
+        </div>
+      </div>
+
+      <!-- Enhanced Statistics Overview -->
+      <div class="stats-overview fade-in">
+        <div class="stat-card" style="--card-color: #002147; --card-color-light: #004080;" onclick="window.open('course-catalog.php?type=local', '_blank')">
+          <div class="stat-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="stat-number">1,120</div>
+          <div class="stat-label">Local Training Personnel</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +12% from 2023
+          </div>
+          <a href="course-catalog.php?type=local" class="course-link">
+            <i class="fas fa-eye"></i> View Local Courses
+          </a>
+        </div>
+
+        <div class="stat-card" style="--card-color: #c8102e; --card-color-light: #e74c3c;" onclick="window.open('course-catalog.php?type=foreign', '_blank')">
+          <div class="stat-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="stat-number">85</div>
+          <div class="stat-label">Foreign Training Personnel</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +25% from 2023
+          </div>
+          <a href="course-catalog.php?type=foreign" class="course-link">
+            <i class="fas fa-eye"></i> View Foreign Courses
+          </a>
+        </div>
+
+        <div class="stat-card" style="--card-color: #f2b705; --card-color-light: #f39c12;" onclick="window.open('course-catalog.php?type=unit', '_blank')">
+          <div class="stat-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <div class="stat-number">80</div>
+          <div class="stat-label">Unit/Interagency Personnel</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +18% from 2023
+          </div>
+          <a href="course-catalog.php?type=unit" class="course-link">
+            <i class="fas fa-eye"></i> View Unit Courses
+          </a>
+        </div>
+
+        <div class="stat-card" style="--card-color: #28a745; --card-color-light: #2ecc71;" onclick="window.open('course-catalog.php', '_blank')">
+          <div class="stat-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="stat-number">1,285</div>
+          <div class="stat-label">Total Trainees (2024)</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +15% from 2023
+          </div>
+          <a href="course-catalog.php" class="course-link">
+            <i class="fas fa-eye"></i> View All Courses
+          </a>
+        </div>
+      </div>
+
+      <!-- Course Links Section -->
+      <div id="course-links" class="course-links-section slide-in-left">
+        <div class="course-links-header">
+          <h3><i class="fas fa-link"></i> Training Program Categories</h3>
+          <p>Explore our comprehensive training programs by category</p>
+        </div>
+        <div class="course-links-grid">
+          <div class="course-category" style="--category-color: #002147; --category-color-light: #004080;">
+            <h4><i class="fas fa-home"></i> Local Training Programs</h4>
+            <p>Comprehensive local training including career courses, functional training, and specialized skill development programs.</p>
+            <a href="course-catalog.php?type=local" class="course-category-btn">
+              <i class="fas fa-arrow-right"></i> Explore Local Courses
+            </a>
+          </div>
+          
+          <div class="course-category" style="--category-color: #c8102e; --category-color-light: #e74c3c;">
+            <h4><i class="fas fa-globe"></i> Foreign Training Programs</h4>
+            <p>International cooperation and exchange programs with allied coast guards and maritime organizations worldwide.</p>
+            <a href="course-catalog.php?type=foreign" class="course-category-btn">
+              <i class="fas fa-arrow-right"></i> Explore Foreign Courses
+            </a>
+          </div>
+          
+          <div class="course-category" style="--category-color: #f2b705; --category-color-light: #f39c12;">
+            <h4><i class="fas fa-handshake"></i> Unit/Interagency Training</h4>
+            <p>Joint training exercises and collaborative programs with other government agencies and military units.</p>
+            <a href="course-catalog.php?type=unit" class="course-category-btn">
+              <i class="fas fa-arrow-right"></i> Explore Unit Courses
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Charts Section -->
+      <div class="charts-section fade-in">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-line"></i> Local Training Trends
+            </h3>
+            <span class="chart-period">2019 - 2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="localChart"></canvas>
+          </div>
+          <div class="chart-actions">
+            <button class="chart-btn" onclick="window.open('course-catalog.php?type=local', '_blank')">
+              <i class="fas fa-eye"></i> View Courses
+            </button>
+            <button class="chart-btn" onclick="exportChartData('local')">
+              <i class="fas fa-download"></i> Export Data
+            </button>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-line"></i> Foreign Training Trends
+            </h3>
+            <span class="chart-period">2019 - 2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="foreignChart"></canvas>
+          </div>
+          <div class="chart-actions">
+            <button class="chart-btn" onclick="window.open('course-catalog.php?type=foreign', '_blank')">
+              <i class="fas fa-eye"></i> View Courses
+            </button>
+            <button class="chart-btn" onclick="exportChartData('foreign')">
+              <i class="fas fa-download"></i> Export Data
+            </button>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-line"></i> Unit/Interagency Training
+            </h3>
+            <span class="chart-period">2019 - 2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="unitChart"></canvas>
+          </div>
+          <div class="chart-actions">
+            <button class="chart-btn" onclick="window.open('course-catalog.php?type=unit', '_blank')">
+              <i class="fas fa-eye"></i> View Courses
+            </button>
+            <button class="chart-btn" onclick="exportChartData('unit')">
+              <i class="fas fa-download"></i> Export Data
+            </button>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-pie"></i> Training Distribution
+            </h3>
+            <span class="chart-period">2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="distributionChart"></canvas>
+          </div>
+          <div class="chart-actions">
+            <button class="chart-btn" onclick="window.open('course-catalog.php', '_blank')">
+              <i class="fas fa-eye"></i> View All Courses
+            </button>
+            <button class="chart-btn" onclick="exportChartData('distribution')">
+              <i class="fas fa-download"></i> Export Data
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Philippines Map Section -->
+      <div class="map-section fade-in">
+        <div class="map-header">
+          <h3><i class="fas fa-map-marked-alt"></i> Philippines Unit Assignment & Training Map</h3>
+          <p>Interactive map showing PCG unit locations, personnel assignments, and training statistics across the Philippines</p>
+        </div>
+        
+        <div class="map-container">
+          <div class="map-controls">
+            <div class="control-group">
+              <label>Filter by Training Type:</label>
+              <select id="trainingFilter" onchange="filterMapData()">
+                <option value="all">All Training Types</option>
+                <option value="local">Local Training</option>
+                <option value="foreign">Foreign Training</option>
+                <option value="unit">Unit/Interagency</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label>Filter by Region:</label>
+              <select id="regionFilter" onchange="filterMapData()">
+                <option value="all">All Regions</option>
+                <option value="ncr">National Capital Region</option>
+                <option value="luzon">Luzon</option>
+                <option value="visayas">Visayas</option>
+                <option value="mindanao">Mindanao</option>
+              </select>
+            </div>
+            <button class="map-btn" onclick="resetMap()">
+              <i class="fas fa-refresh"></i> Reset Map
+            </button>
+          </div>
+          
+          <div class="philippines-map">
+            <!-- Philippines SVG Map -->
+            <svg id="philippinesMap" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+              <!-- Luzon Region -->
+              <g id="luzon" class="region-group">
+                <path class="region-path" d="M200,150 L300,120 L350,180 L320,250 L250,280 L180,220 Z" 
+                      data-region="luzon" data-training="local:45,foreign:12,unit:8" 
+                      data-units="CG-HQ,CG-NCR,CG-CL,CG-CV" 
+                      data-personnel="156" />
+                <text x="250" y="200" class="region-label">Luzon</text>
+                
+                <!-- NCR Units -->
+                <circle class="unit-marker ncr" cx="280" cy="160" r="8" 
+                        data-unit="CG-HQ" data-personnel="45" data-training="local:20,foreign:8,unit:5" />
+                <circle class="unit-marker ncr" cx="300" cy="140" r="6" 
+                        data-unit="CG-NCR" data-personnel="32" data-training="local:15,foreign:3,unit:2" />
+                
+                <!-- Other Luzon Units -->
+                <circle class="unit-marker luzon" cx="220" cy="200" r="6" 
+                        data-unit="CG-CL" data-personnel="28" data-training="local:10,foreign:1,unit:1" />
+                <circle class="unit-marker luzon" cx="320" cy="220" r="6" 
+                        data-unit="CG-CV" data-personnel="51" data-training="local:25,foreign:2,unit:3" />
+              </g>
+              
+              <!-- Visayas Region -->
+              <g id="visayas" class="region-group">
+                <path class="region-path" d="M150,300 L250,280 L300,320 L280,380 L200,400 L120,350 Z" 
+                      data-region="visayas" data-training="local:38,foreign:15,unit:12" 
+                      data-units="CG-CV,CG-CE,CG-WV" 
+                      data-personnel="134" />
+                <text x="200" y="340" class="region-label">Visayas</text>
+                
+                <!-- Visayas Units -->
+                <circle class="unit-marker visayas" cx="200" cy="320" r="8" 
+                        data-unit="CG-CV" data-personnel="42" data-training="local:18,foreign:6,unit:4" />
+                <circle class="unit-marker visayas" cx="180" cy="360" r="6" 
+                        data-unit="CG-CE" data-personnel="38" data-training="local:12,foreign:5,unit:4" />
+                <circle class="unit-marker visayas" cx="240" cy="350" r="6" 
+                        data-unit="CG-WV" data-personnel="54" data-training="local:20,foreign:4,unit:4" />
+              </g>
+              
+              <!-- Mindanao Region -->
+              <g id="mindanao" class="region-group">
+                <path class="region-path" d="M100,450 L200,400 L250,450 L220,520 L150,550 L80,500 Z" 
+                      data-region="mindanao" data-training="local:37,foreign:18,unit:15" 
+                      data-units="CG-DV,CG-DM,CG-DS" 
+                      data-personnel="128" />
+                <text x="150" y="480" class="region-label">Mindanao</text>
+                
+                <!-- Mindanao Units -->
+                <circle class="unit-marker mindanao" cx="180" cy="450" r="8" 
+                        data-unit="CG-DV" data-personnel="48" data-training="local:22,foreign:8,unit:6" />
+                <circle class="unit-marker mindanao" cx="140" cy="480" r="6" 
+                        data-unit="CG-DM" data-personnel="35" data-training="local:15,foreign:5,unit:4" />
+                <circle class="unit-marker mindanao" cx="200" cy="500" r="6" 
+                        data-unit="CG-DS" data-personnel="45" data-training="local:18,foreign:5,unit:5" />
+              </g>
+              
+              <!-- Legend -->
+              <g id="map-legend" transform="translate(650,50)">
+                <rect x="0" y="0" width="120" height="140" fill="white" stroke="#ccc" stroke-width="1" rx="5"/>
+                <text x="60" y="20" text-anchor="middle" class="legend-title">Legend</text>
+                
+                <circle cx="15" cy="40" r="8" class="unit-marker ncr"/>
+                <text x="25" y="45" class="legend-text">NCR Units</text>
+                
+                <circle cx="15" cy="60" r="6" class="unit-marker luzon"/>
+                <text x="25" y="65" class="legend-text">Luzon Units</text>
+                
+                <circle cx="15" cy="80" r="6" class="unit-marker visayas"/>
+                <text x="25" y="85" class="legend-text">Visayas Units</text>
+                
+                <circle cx="15" cy="100" r="6" class="unit-marker mindanao"/>
+                <text x="25" y="105" class="legend-text">Mindanao Units</text>
+                
+                <rect x="5" y="120" width="10" height="10" fill="#28a745"/>
+                <text x="20" y="130" class="legend-text">Local Training</text>
+              </g>
+            </svg>
+          </div>
+          
+          <div class="map-info-panel">
+            <div id="mapInfo" class="info-content">
+              <h4><i class="fas fa-info-circle"></i> Map Information</h4>
+              <p>Click on any region or unit marker to view detailed information about personnel assignments and training statistics.</p>
+              
+              <div class="map-stats">
+                <div class="stat-item">
+                  <span class="stat-label">Total Units:</span>
+                  <span class="stat-value">12</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Total Personnel:</span>
+                  <span class="stat-value">418</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Local Training:</span>
+                  <span class="stat-value">120</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Foreign Training:</span>
+                  <span class="stat-value">45</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Unit Training:</span>
+                  <span class="stat-value">35</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Data Table -->
+      <div class="data-table-section fade-in">
+        <div class="table-header">
+          <h3><i class="fas fa-table"></i> Training Statistics by Year</h3>
+          <button class="export-btn" onclick="exportData()">
+            <i class="fas fa-download"></i> Export Full Report
+          </button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Local Training</th>
+              <th>Foreign Training</th>
+              <th>Unit/Interagency</th>
+              <th>Total</th>
+              <th>Growth Rate</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>2024</strong></td>
+              <td class="number">1,120</td>
+              <td class="number">85</td>
+              <td class="number">80</td>
+              <td class="number">1,285</td>
+              <td class="number" style="color: #28a745;">+15%</td>
+              <td>
+                <a href="course-catalog.php?year=2024" style="color: #002147; text-decoration: none; font-weight: 600;">
+                  <i class="fas fa-eye"></i> View Courses
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2023</strong></td>
+              <td class="number">1,000</td>
+              <td class="number">68</td>
+              <td class="number">68</td>
+              <td class="number">1,136</td>
+              <td class="number" style="color: #28a745;">+20%</td>
+              <td>
+                <a href="course-catalog.php?year=2023" style="color: #002147; text-decoration: none; font-weight: 600;">
+                  <i class="fas fa-eye"></i> View Courses
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2022</strong></td>
+              <td class="number">850</td>
+              <td class="number">45</td>
+              <td class="number">55</td>
+              <td class="number">950</td>
+              <td class="number" style="color: #28a745;">+19%</td>
+              <td>
+                <a href="course-catalog.php?year=2022" style="color: #002147; text-decoration: none; font-weight: 600;">
+                  <i class="fas fa-eye"></i> View Courses
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2021</strong></td>
+              <td class="number">720</td>
+              <td class="number">32</td>
+              <td class="number">48</td>
+              <td class="number">800</td>
+              <td class="number" style="color: #28a745;">+12%</td>
+              <td>
+                <a href="course-catalog.php?year=2021" style="color: #002147; text-decoration: none; font-weight: 600;">
+                  <i class="fas fa-eye"></i> View Courses
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2020</strong></td>
+              <td class="number">650</td>
+              <td class="number">25</td>
+              <td class="number">40</td>
+              <td class="number">715</td>
+              <td class="number" style="color: #28a745;">+13%</td>
+              <td>
+                <a href="course-catalog.php?year=2020" style="color: #002147; text-decoration: none; font-weight: 600;">
+                  <i class="fas fa-eye"></i> View Courses
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2019</strong></td>
+              <td class="number">580</td>
+              <td class="number">20</td>
+              <td class="number">35</td>
+              <td class="number">635</td>
+              <td class="number">-</td>
+              <td>
+                <a href="course-catalog.php?year=2019" style="color: #002147; text-decoration: none; font-weight: 600;">
+                  <i class="fas fa-eye"></i> View Courses
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Philippine Coast Guard – Deputy Chief of Coast Guard Staff for Education and Training, CG-12 | All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Chart Data
+    const years = ["2019", "2020", "2021", "2022", "2023", "2024"];
+    const localData = [580, 650, 720, 850, 1000, 1120];
+    const foreignData = [20, 25, 32, 45, 68, 85];
+    const unitData = [35, 40, 48, 55, 68, 80];
+
+    // Enhanced Chart Configuration
+    const chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            usePointStyle: true,
+            padding: 25,
+            font: {
+              size: 13,
+              weight: '600'
+            }
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 33, 71, 0.95)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: '#c8102e',
+          borderWidth: 2,
+          cornerRadius: 10,
+          displayColors: true,
+          titleFont: {
+            size: 14,
+            weight: 'bold'
+          },
+          bodyFont: {
+            size: 13
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            color: 'rgba(0, 0, 0, 0.08)',
+            lineWidth: 1
+          },
+          ticks: {
+            font: {
+              size: 12,
+              weight: '600'
+            },
+            color: '#666'
+          }
+        },
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(0, 0, 0, 0.08)',
+            lineWidth: 1
+          },
+          ticks: {
+            font: {
+              size: 12,
+              weight: '600'
+            },
+            color: '#666'
+          }
+        }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
+      }
+    };
+
+    // Local Training Chart
+    new Chart(document.getElementById('localChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Local Training Personnel',
+          data: localData,
+          borderColor: '#002147',
+          backgroundColor: 'rgba(0, 33, 71, 0.1)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#002147',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 3,
+          pointRadius: 8,
+          pointHoverRadius: 10
+        }]
+      },
+      options: chartOptions
+    });
+
+    // Foreign Training Chart
+    new Chart(document.getElementById('foreignChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Foreign Training Personnel',
+          data: foreignData,
+          borderColor: '#c8102e',
+          backgroundColor: 'rgba(200, 16, 46, 0.1)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#c8102e',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 3,
+          pointRadius: 8,
+          pointHoverRadius: 10
+        }]
+      },
+      options: chartOptions
+    });
+
+    // Unit Training Chart
+    new Chart(document.getElementById('unitChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Unit/Interagency Personnel',
+          data: unitData,
+          borderColor: '#f2b705',
+          backgroundColor: 'rgba(242, 183, 5, 0.1)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#f2b705',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 3,
+          pointRadius: 8,
+          pointHoverRadius: 10
+        }]
+      },
+      options: chartOptions
+    });
+
+    // Distribution Chart
+    new Chart(document.getElementById('distributionChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Local Training', 'Foreign Training', 'Unit/Interagency'],
+        datasets: [{
+          data: [1120, 85, 80],
+          backgroundColor: ['#002147', '#c8102e', '#f2b705'],
+          borderWidth: 4,
+          borderColor: '#fff',
+          hoverBorderWidth: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              usePointStyle: true,
+              padding: 25,
+              font: {
+                size: 13,
+                weight: '600'
+              }
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(0, 33, 71, 0.95)',
+            titleColor: '#fff',
+            bodyColor: '#fff',
+            borderColor: '#c8102e',
+            borderWidth: 2,
+            cornerRadius: 10
+          }
+        }
+      }
+    });
+
+    // Enhanced Functions
+    function exportData() {
+      alert('📊 Exporting comprehensive training report...\n\n✅ Training statistics by year\n✅ Course enrollment data\n✅ Performance metrics\n✅ Growth analysis\n\nReport will be downloaded as Excel file.');
+    }
+
+    function exportChartData(type) {
+      const typeNames = {
+        'local': 'Local Training',
+        'foreign': 'Foreign Training', 
+        'unit': 'Unit/Interagency Training',
+        'distribution': 'Training Distribution'
+      };
+      
+      alert(`📈 Exporting ${typeNames[type]} data...\n\nData will be downloaded as CSV file with detailed statistics.`);
+    }
+
+    // Interactive Map Functions
+    function initializeMap() {
+      // Add click event listeners to regions and unit markers
+      document.querySelectorAll('.region-path').forEach(path => {
+        path.addEventListener('click', function() {
+          showRegionInfo(this);
+        });
+      });
+
+      document.querySelectorAll('.unit-marker').forEach(marker => {
+        marker.addEventListener('click', function() {
+          showUnitInfo(this);
+        });
+      });
+    }
+
+    function showRegionInfo(regionElement) {
+      // Remove active class from all regions
+      document.querySelectorAll('.region-path').forEach(path => {
+        path.classList.remove('active');
+      });
+      
+      // Add active class to clicked region
+      regionElement.classList.add('active');
+      
+      const region = regionElement.getAttribute('data-region');
+      const training = regionElement.getAttribute('data-training');
+      const units = regionElement.getAttribute('data-units');
+      const personnel = regionElement.getAttribute('data-personnel');
+      
+      // Parse training data
+      const trainingData = training.split(',').reduce((acc, item) => {
+        const [type, count] = item.split(':');
+        acc[type] = parseInt(count);
+        return acc;
+      }, {});
+      
+      // Update info panel
+      const infoPanel = document.getElementById('mapInfo');
+      infoPanel.innerHTML = `
+        <h4><i class="fas fa-map"></i> ${region.toUpperCase()} Region</h4>
+        <p>Comprehensive training and personnel information for the ${region} region.</p>
+        
+        <div class="map-stats">
+          <div class="stat-item">
+            <span class="stat-label">Total Personnel:</span>
+            <span class="stat-value">${personnel}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Local Training:</span>
+            <span class="stat-value">${trainingData.local}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Foreign Training:</span>
+            <span class="stat-value">${trainingData.foreign}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Unit Training:</span>
+            <span class="stat-value">${trainingData.unit}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Units:</span>
+            <span class="stat-value">${units}</span>
+          </div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+          <button class="map-btn" onclick="viewRegionDetails('${region}')">
+            <i class="fas fa-eye"></i> View Detailed Report
+          </button>
+        </div>
+      `;
+    }
+
+    function showUnitInfo(unitElement) {
+      // Remove active class from all markers
+      document.querySelectorAll('.unit-marker').forEach(marker => {
+        marker.classList.remove('active');
+      });
+      
+      // Add active class to clicked marker
+      unitElement.classList.add('active');
+      
+      const unit = unitElement.getAttribute('data-unit');
+      const personnel = unitElement.getAttribute('data-personnel');
+      const training = unitElement.getAttribute('data-training');
+      
+      // Parse training data
+      const trainingData = training.split(',').reduce((acc, item) => {
+        const [type, count] = item.split(':');
+        acc[type] = parseInt(count);
+        return acc;
+      }, {});
+      
+      // Update info panel
+      const infoPanel = document.getElementById('mapInfo');
+      infoPanel.innerHTML = `
+        <h4><i class="fas fa-building"></i> ${unit}</h4>
+        <p>Detailed information for ${unit} unit including personnel and training statistics.</p>
+        
+        <div class="map-stats">
+          <div class="stat-item">
+            <span class="stat-label">Total Personnel:</span>
+            <span class="stat-value">${personnel}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Local Training:</span>
+            <span class="stat-value">${trainingData.local}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Foreign Training:</span>
+            <span class="stat-value">${trainingData.foreign}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Unit Training:</span>
+            <span class="stat-value">${trainingData.unit}</span>
+          </div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+          <button class="map-btn" onclick="viewUnitDetails('${unit}')">
+            <i class="fas fa-eye"></i> View Unit Details
+          </button>
+          <button class="map-btn" onclick="viewPersonnelList('${unit}')" style="margin-top: 10px;">
+            <i class="fas fa-users"></i> View Personnel List
+          </button>
+        </div>
+      `;
+    }
+
+    function filterMapData() {
+      const trainingFilter = document.getElementById('trainingFilter').value;
+      const regionFilter = document.getElementById('regionFilter').value;
+      
+      // Reset all elements
+      document.querySelectorAll('.region-path, .unit-marker').forEach(element => {
+        element.style.opacity = '1';
+        element.style.display = 'block';
+      });
+      
+      // Apply filters
+      if (trainingFilter !== 'all') {
+        document.querySelectorAll('.unit-marker').forEach(marker => {
+          const training = marker.getAttribute('data-training');
+          const hasTraining = training.includes(trainingFilter);
+          marker.style.opacity = hasTraining ? '1' : '0.3';
+        });
+      }
+      
+      if (regionFilter !== 'all') {
+        document.querySelectorAll('.region-path, .unit-marker').forEach(element => {
+          const region = element.getAttribute('data-region') || element.classList[1];
+          const matchesRegion = region === regionFilter;
+          element.style.opacity = matchesRegion ? '1' : '0.3';
+        });
+      }
+      
+      // Update info panel with filtered stats
+      updateFilteredStats();
+    }
+
+    function updateFilteredStats() {
+      const trainingFilter = document.getElementById('trainingFilter').value;
+      const regionFilter = document.getElementById('regionFilter').value;
+      
+      let totalPersonnel = 0;
+      let localTraining = 0;
+      let foreignTraining = 0;
+      let unitTraining = 0;
+      
+      document.querySelectorAll('.unit-marker').forEach(marker => {
+        const training = marker.getAttribute('data-training');
+        const personnel = parseInt(marker.getAttribute('data-personnel'));
+        const region = marker.classList[1];
+        
+        let shouldInclude = true;
+        
+        if (trainingFilter !== 'all') {
+          shouldInclude = training.includes(trainingFilter);
+        }
+        
+        if (regionFilter !== 'all') {
+          shouldInclude = shouldInclude && region === regionFilter;
+        }
+        
+        if (shouldInclude) {
+          totalPersonnel += personnel;
+          const trainingData = training.split(',').reduce((acc, item) => {
+            const [type, count] = item.split(':');
+            acc[type] = parseInt(count);
+            return acc;
+          }, {});
+          
+          localTraining += trainingData.local || 0;
+          foreignTraining += trainingData.foreign || 0;
+          unitTraining += trainingData.unit || 0;
+        }
+      });
+      
+      // Update stats in info panel
+      const infoPanel = document.getElementById('mapInfo');
+      if (!infoPanel.querySelector('h4').textContent.includes('Region') && 
+          !infoPanel.querySelector('h4').textContent.includes('Unit')) {
+        infoPanel.innerHTML = `
+          <h4><i class="fas fa-filter"></i> Filtered Results</h4>
+          <p>Statistics based on current filter selections.</p>
+          
+          <div class="map-stats">
+            <div class="stat-item">
+              <span class="stat-label">Total Personnel:</span>
+              <span class="stat-value">${totalPersonnel}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Local Training:</span>
+              <span class="stat-value">${localTraining}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Foreign Training:</span>
+              <span class="stat-value">${foreignTraining}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Unit Training:</span>
+              <span class="stat-value">${unitTraining}</span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function resetMap() {
+      // Reset filters
+      document.getElementById('trainingFilter').value = 'all';
+      document.getElementById('regionFilter').value = 'all';
+      
+      // Reset map display
+      document.querySelectorAll('.region-path, .unit-marker').forEach(element => {
+        element.style.opacity = '1';
+        element.style.display = 'block';
+        element.classList.remove('active');
+      });
+      
+      // Reset info panel
+      const infoPanel = document.getElementById('mapInfo');
+      infoPanel.innerHTML = `
+        <h4><i class="fas fa-info-circle"></i> Map Information</h4>
+        <p>Click on any region or unit marker to view detailed information about personnel assignments and training statistics.</p>
+        
+        <div class="map-stats">
+          <div class="stat-item">
+            <span class="stat-label">Total Units:</span>
+            <span class="stat-value">12</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Total Personnel:</span>
+            <span class="stat-value">418</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Local Training:</span>
+            <span class="stat-value">120</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Foreign Training:</span>
+            <span class="stat-value">45</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Unit Training:</span>
+            <span class="stat-value">35</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function viewRegionDetails(region) {
+      alert(`📊 Opening detailed report for ${region.toUpperCase()} region...\n\nThis would open a comprehensive report showing:\n• All units in the region\n• Personnel distribution\n• Training statistics\n• Performance metrics\n• Historical data`);
+    }
+
+    function viewUnitDetails(unit) {
+      alert(`🏢 Opening detailed information for ${unit}...\n\nThis would show:\n• Unit overview and mission\n• Personnel roster\n• Training programs\n• Equipment and resources\n• Contact information`);
+    }
+
+    function viewPersonnelList(unit) {
+      alert(`👥 Opening personnel list for ${unit}...\n\nThis would display:\n• Complete personnel roster\n• Rank and position\n• Training history\n• Contact details\n• Performance records`);
+    }
+
+    // Enhanced scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.stat-card, .chart-container, .course-category').forEach(item => {
+      observer.observe(item);
+    });
+
+    // Enhanced scroll effect for header
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(0, 33, 71, 0.95)';
+        header.style.backdropFilter = 'blur(10px)';
+        header.style.boxShadow = '0 8px 30px rgba(0,0,0,0.2)';
+      } else {
+        header.style.background = 'linear-gradient(135deg, #002147 0%, #004080 100%)';
+        header.style.backdropFilter = 'none';
+        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Initialize the interactive map when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeMap();
+    });
+  </script>
+</body>
+</html>

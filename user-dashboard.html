@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - PCG CG-12</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #002147 0%, #1e3a8a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .user-info {
+            background: #fff3cd;
+            color: #856404;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ffc107;
+            text-align: center;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .card h3 {
+            color: #002147;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .card p {
+            color: #6c757d;
+            line-height: 1.6;
+        }
+        
+        .permissions-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .permissions-section h2 {
+            color: #002147;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .permission-item {
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .permission-allowed {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .permission-denied {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #002147 0%, #1e3a8a 100%);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 10px 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .logout-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .permissions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>User Dashboard</h1>
+        <p>PCG CG-12 Training Management System</p>
+    </div>
+    
+    <div class="user-info">
+        <h3>👤 Welcome, Regular User!</h3>
+        <p>You have view-only access to the personnel management system. You can browse and search personnel data but cannot make any modifications.</p>
+    </div>
+    
+    <div class="dashboard-grid">
+        <a href="manage_personnel.php" class="card">
+            <div class="card-icon">👥</div>
+            <h3>View Personnel</h3>
+            <p>Browse and search through all personnel records including Officers and Non-Officers. View-only access with no editing capabilities.</p>
+        </a>
+        
+        <a href="course-catalog.php" class="card">
+            <div class="card-icon">📚</div>
+            <h3>Course Catalog</h3>
+            <p>Explore available training courses and their details. View course descriptions, durations, and requirements.</p>
+        </a>
+        
+        <a href="reports.html" class="card">
+            <div class="card-icon">📊</div>
+            <h3>View Reports</h3>
+            <p>Access training reports and statistics. View personnel training progress and course completion data.</p>
+        </a>
+        
+        <div class="card">
+            <div class="card-icon">ℹ️</div>
+            <h3>System Information</h3>
+            <p>Get information about the PCG CG-12 Training Management System, contact details, and support resources.</p>
+        </div>
+    </div>
+    
+    <div class="permissions-section">
+        <h2>🔐 Your Access Permissions</h2>
+        <div class="permissions-grid">
+            <div class="permission-item permission-allowed">
+                <span style="font-size: 1.5em;">✅</span>
+                <div>
+                    <strong>View Personnel Data</strong><br>
+                    <small>Browse all personnel records</small>
+                </div>
+            </div>
+            
+            <div class="permission-item permission-allowed">
+                <span style="font-size: 1.5em;">✅</span>
+                <div>
+                    <strong>Search & Filter</strong><br>
+                    <small>Search and filter personnel data</small>
+                </div>
+            </div>
+            
+            <div class="permission-item permission-allowed">
+                <span style="font-size: 1.5em;">✅</span>
+                <div>
+                    <strong>View Reports</strong><br>
+                    <small>Access training reports</small>
+                </div>
+            </div>
+            
+            <div class="permission-item permission-denied">
+                <span style="font-size: 1.5em;">❌</span>
+                <div>
+                    <strong>Edit Personnel</strong><br>
+                    <small>Cannot modify personnel records</small>
+                </div>
+            </div>
+            
+            <div class="permission-item permission-denied">
+                <span style="font-size: 1.5em;">❌</span>
+                <div>
+                    <strong>Delete Personnel</strong><br>
+                    <small>Cannot delete personnel records</small>
+                </div>
+            </div>
+            
+            <div class="permission-item permission-denied">
+                <span style="font-size: 1.5em;">❌</span>
+                <div>
+                    <strong>Upload Data</strong><br>
+                    <small>Cannot upload Excel/CSV files</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="logout-section">
+        <a href="manage_personnel.php" class="btn">👥 View Personnel Data</a>
+        <a href="course-catalog.php" class="btn">📚 Browse Courses</a>
+        <a href="reports.html" class="btn">📊 View Reports</a>
+        <a href="logout.php" class="btn btn-secondary">🚪 Logout</a>
+    </div>
+</div>
+
+</body>
+</html> 

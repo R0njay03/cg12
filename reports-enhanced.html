@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training Reports | PCG CG-12</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+
+    /* Enhanced Header */
+    .header {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 15px 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid #c8102e;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.1) rotate(360deg);
+      box-shadow: 0 0 20px rgba(200, 16, 46, 0.5);
+    }
+
+    .title-text {
+      flex: 1;
+    }
+
+    .title-text h1 {
+      font-size: 1.8em;
+      font-weight: 600;
+      margin-bottom: 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .title-text h2 {
+      font-size: 1.1em;
+      font-weight: 400;
+      opacity: 0.9;
+      color: #f2b705;
+    }
+
+    /* Enhanced Navigation */
+    .navbar {
+      display: flex;
+      gap: 30px;
+      margin: 0 30px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      background: rgba(200, 16, 46, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-btn:hover {
+      background: linear-gradient(135deg, #f2b705 0%, #d4a004 100%);
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(242, 183, 5, 0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-top: 120px;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Page Header */
+    .page-header {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #002147, #c8102e, #f2b705);
+    }
+
+    .page-header h1 {
+      color: #002147;
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .page-header p {
+      color: #666;
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Statistics Cards */
+    .stats-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--card-color, #002147);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .stat-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--card-color, #002147);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 1.8em;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover .stat-icon {
+      transform: scale(1.1);
+    }
+
+    .stat-number {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: var(--card-color, #002147);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+
+    .stat-change {
+      margin-top: 10px;
+      font-size: 0.9em;
+      font-weight: 600;
+    }
+
+    .stat-change.positive {
+      color: #28a745;
+    }
+
+    .stat-change.negative {
+      color: #dc3545;
+    }
+
+    /* Chart Containers */
+    .charts-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .chart-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .chart-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f8f9fa;
+    }
+
+    .chart-title {
+      color: #002147;
+      font-size: 1.3em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chart-period {
+      color: #666;
+      font-size: 0.9em;
+      background: #f8f9fa;
+      padding: 5px 15px;
+      border-radius: 20px;
+    }
+
+    .chart-canvas {
+      position: relative;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    /* Data Table */
+    .data-table-section {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .table-header {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-header h3 {
+      margin: 0;
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .export-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .export-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 15px 20px;
+      text-align: left;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .data-table th {
+      background: #f8f9fa;
+      color: #002147;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      letter-spacing: 0.5px;
+    }
+
+    .data-table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .data-table .number {
+      font-weight: 600;
+      color: #002147;
+    }
+
+    /* Filters */
+    .filters-section {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .filters-header {
+      color: #002147;
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-group label {
+      color: #002147;
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      padding: 10px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .filter-group select:focus,
+    .filter-group input:focus {
+      outline: none;
+      border-color: #002147;
+      box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+    }
+
+    .apply-filters-btn {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-self: end;
+    }
+
+    .apply-filters-btn:hover {
+      background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, #002147 0%, #001a3a 100%);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .footer-content p {
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+      
+      .page-header h1 {
+        font-size: 2em;
+      }
+      
+      .charts-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .chart-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .apply-filters-btn {
+        justify-self: stretch;
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Enhanced Header -->
+  <header class="header">
+    <div class="header-content">
+      <img src="pcg_logo.png" class="logo" alt="PCG Logo" />
+      <div class="title-text">
+        <h1>Deputy Chief of Coast Guard Staff for Education and Training</h1>
+        <h2>Philippine Coast Guard | CG-12</h2>
+      </div>
+    </div>
+    
+    <nav class="navbar">
+      <a href="index-improved.html"><i class="fas fa-home"></i> Home</a>
+      <a href="course-catalog.php"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="reports-enhanced.html" class="active"><i class="fas fa-chart-bar"></i> Reports</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+    
+    <div class="header-right">
+      <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="page-header fade-in">
+        <h1><i class="fas fa-chart-line"></i> Training Reports & Analytics</h1>
+        <p>Comprehensive training statistics and performance metrics for PCG CG-12 education programs</p>
+      </div>
+
+      <!-- Statistics Overview -->
+      <div class="stats-overview fade-in">
+        <div class="stat-card" style="--card-color: #002147;">
+          <div class="stat-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="stat-number" id="totalTrainees">1,285</div>
+          <div class="stat-label">Total Trainees (2024)</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +15% from 2023
+          </div>
+        </div>
+
+        <div class="stat-card" style="--card-color: #c8102e;">
+          <div class="stat-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="stat-number" id="localTraining">1,120</div>
+          <div class="stat-label">Local Training</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +12% from 2023
+          </div>
+        </div>
+
+        <div class="stat-card" style="--card-color: #f2b705;">
+          <div class="stat-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="stat-number" id="foreignTraining">85</div>
+          <div class="stat-label">Foreign Training</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +25% from 2023
+          </div>
+        </div>
+
+        <div class="stat-card" style="--card-color: #28a745;">
+          <div class="stat-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <div class="stat-number" id="unitTraining">80</div>
+          <div class="stat-label">Unit/Interagency</div>
+          <div class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> +18% from 2023
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters Section -->
+      <div class="filters-section fade-in">
+        <h3 class="filters-header">
+          <i class="fas fa-filter"></i> Filter Reports
+        </h3>
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label for="yearFilter">Year</label>
+            <select id="yearFilter">
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="all">All Years</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="trainingType">Training Type</label>
+            <select id="trainingType">
+              <option value="all">All Types</option>
+              <option value="local">Local Training</option>
+              <option value="foreign">Foreign Training</option>
+              <option value="unit">Unit/Interagency</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="quarter">Quarter</label>
+            <select id="quarter">
+              <option value="all">All Quarters</option>
+              <option value="q1">Q1 (Jan-Mar)</option>
+              <option value="q2">Q2 (Apr-Jun)</option>
+              <option value="q3">Q3 (Jul-Sep)</option>
+              <option value="q4">Q4 (Oct-Dec)</option>
+            </select>
+          </div>
+          <button class="apply-filters-btn" onclick="applyFilters()">
+            <i class="fas fa-search"></i> Apply Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="charts-section fade-in">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-line"></i> Training Trends
+            </h3>
+            <span class="chart-period">2019 - 2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="trendsChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-pie"></i> Training Distribution
+            </h3>
+            <span class="chart-period">2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="distributionChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-bar"></i> Monthly Performance
+            </h3>
+            <span class="chart-period">2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="monthlyChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-area"></i> Completion Rates
+            </h3>
+            <span class="chart-period">2024</span>
+          </div>
+          <div class="chart-canvas">
+            <canvas id="completionChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="data-table-section fade-in">
+        <div class="table-header">
+          <h3><i class="fas fa-table"></i> Detailed Training Data</h3>
+          <button class="export-btn" onclick="exportData()">
+            <i class="fas fa-download"></i> Export Data
+          </button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Local Training</th>
+              <th>Foreign Training</th>
+              <th>Unit/Interagency</th>
+              <th>Total</th>
+              <th>Completion Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2024</td>
+              <td class="number">1,120</td>
+              <td class="number">85</td>
+              <td class="number">80</td>
+              <td class="number">1,285</td>
+              <td class="number">94.2%</td>
+            </tr>
+            <tr>
+              <td>2023</td>
+              <td class="number">1,000</td>
+              <td class="number">68</td>
+              <td class="number">68</td>
+              <td class="number">1,136</td>
+              <td class="number">92.8%</td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td class="number">850</td>
+              <td class="number">45</td>
+              <td class="number">55</td>
+              <td class="number">950</td>
+              <td class="number">91.5%</td>
+            </tr>
+            <tr>
+              <td>2021</td>
+              <td class="number">720</td>
+              <td class="number">32</td>
+              <td class="number">48</td>
+              <td class="number">800</td>
+              <td class="number">89.3%</td>
+            </tr>
+            <tr>
+              <td>2020</td>
+              <td class="number">650</td>
+              <td class="number">25</td>
+              <td class="number">40</td>
+              <td class="number">715</td>
+              <td class="number">87.1%</td>
+            </tr>
+            <tr>
+              <td>2019</td>
+              <td class="number">580</td>
+              <td class="number">20</td>
+              <td class="number">35</td>
+              <td class="number">635</td>
+              <td class="number">85.6%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Philippine Coast Guard – Deputy Chief of Coast Guard Staff for Education and Training, CG-12 | All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Chart Data
+    const years = ["2019", "2020", "2021", "2022", "2023", "2024"];
+    const localData = [580, 650, 720, 850, 1000, 1120];
+    const foreignData = [20, 25, 32, 45, 68, 85];
+    const unitData = [35, 40, 48, 55, 68, 80];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthlyData = [95, 102, 118, 125, 110, 98, 105, 112, 108, 115, 122, 95];
+
+    // Chart Configuration
+    const chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            usePointStyle: true,
+            padding: 20,
+            font: {
+              size: 12,
+              weight: '600'
+            }
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 33, 71, 0.9)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: '#c8102e',
+          borderWidth: 1,
+          cornerRadius: 8,
+          displayColors: true
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            color: 'rgba(0, 0, 0, 0.1)'
+          },
+          ticks: {
+            font: {
+              size: 11,
+              weight: '500'
+            }
+          }
+        },
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(0, 0, 0, 0.1)'
+          },
+          ticks: {
+            font: {
+              size: 11,
+              weight: '500'
+            }
+          }
+        }
+      }
+    };
+
+    // Trends Chart
+    new Chart(document.getElementById('trendsChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: 'Local Training',
+            data: localData,
+            borderColor: '#002147',
+            backgroundColor: 'rgba(0, 33, 71, 0.1)',
+            tension: 0.4,
+            fill: true
+          },
+          {
+            label: 'Foreign Training',
+            data: foreignData,
+            borderColor: '#c8102e',
+            backgroundColor: 'rgba(200, 16, 46, 0.1)',
+            tension: 0.4,
+            fill: true
+          },
+          {
+            label: 'Unit/Interagency',
+            data: unitData,
+            borderColor: '#f2b705',
+            backgroundColor: 'rgba(242, 183, 5, 0.1)',
+            tension: 0.4,
+            fill: true
+          }
+        ]
+      },
+      options: chartOptions
+    });
+
+    // Distribution Chart
+    new Chart(document.getElementById('distributionChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Local Training', 'Foreign Training', 'Unit/Interagency'],
+        datasets: [{
+          data: [1120, 85, 80],
+          backgroundColor: ['#002147', '#c8102e', '#f2b705'],
+          borderWidth: 3,
+          borderColor: '#fff'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              usePointStyle: true,
+              padding: 20,
+              font: {
+                size: 12,
+                weight: '600'
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Monthly Chart
+    new Chart(document.getElementById('monthlyChart'), {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Monthly Trainees',
+          data: monthlyData,
+          backgroundColor: 'rgba(0, 33, 71, 0.8)',
+          borderColor: '#002147',
+          borderWidth: 2,
+          borderRadius: 4
+        }]
+      },
+      options: chartOptions
+    });
+
+    // Completion Rates Chart
+    new Chart(document.getElementById('completionChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Completion Rate (%)',
+          data: [85.6, 87.1, 89.3, 91.5, 92.8, 94.2],
+          borderColor: '#28a745',
+          backgroundColor: 'rgba(40, 167, 69, 0.1)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#28a745',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 6
+        }]
+      },
+      options: {
+        ...chartOptions,
+        scales: {
+          ...chartOptions.scales,
+          y: {
+            ...chartOptions.scales.y,
+            min: 80,
+            max: 100
+          }
+        }
+      }
+    });
+
+    // Functions
+    function applyFilters() {
+      const year = document.getElementById('yearFilter').value;
+      const type = document.getElementById('trainingType').value;
+      const quarter = document.getElementById('quarter').value;
+      
+      // Simulate filter application
+      alert(`Filters applied:\nYear: ${year}\nType: ${type}\nQuarter: ${quarter}\n\nData will be updated accordingly.`);
+    }
+
+    function exportData() {
+      // Simulate data export
+      alert('Exporting training data to CSV format...\n\nThis feature will download a comprehensive report with all training statistics.');
+    }
+
+    // Add scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.stat-card, .chart-container').forEach(item => {
+      observer.observe(item);
+    });
+
+    // Add scroll effect to header
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(0, 33, 71, 0.95)';
+        header.style.backdropFilter = 'blur(10px)';
+      } else {
+        header.style.background = 'linear-gradient(135deg, #002147 0%, #004080 100%)';
+        header.style.backdropFilter = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

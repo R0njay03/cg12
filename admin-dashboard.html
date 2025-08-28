@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | PCG CG-12</title>
+  <link rel="stylesheet" href="admin-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Enhanced Dashboard Styles */
+    .dashboard-header {
+      background: linear-gradient(135deg, #002147 0%, #004080 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .dashboard-header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      font-weight: 300;
+    }
+    
+    .dashboard-header p {
+      margin: 10px 0 0 0;
+      opacity: 0.9;
+      font-size: 1.1em;
+    }
+    
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .action-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 4px solid #002147;
+    }
+    
+    .action-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .action-card i {
+      font-size: 3em;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+    
+    .action-card h3 {
+      color: #002147;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+    
+    .action-card p {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    
+    .action-btn {
+      background: #002147;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .action-btn:hover {
+      background: #c8102e;
+      transform: scale(1.05);
+    }
+    
+    .enhanced-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .enhanced-stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .enhanced-stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #002147, #c8102e);
+    }
+    
+    .stat-icon {
+      font-size: 2.5em;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+    
+    .stat-number {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #c8102e;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+    
+    .courses-preview {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    
+    .courses-preview h2 {
+      color: #002147;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .course-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .course-preview-card {
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .course-preview-card:hover {
+      border-color: #002147;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .course-title {
+      color: #002147;
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .course-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      font-size: 0.9em;
+      color: #666;
+    }
+    
+    .course-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 0.85em;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-view {
+      background: #17a2b8;
+      color: white;
+    }
+    
+    .btn-view:hover {
+      background: #138496;
+    }
+    
+    .btn-edit {
+      background: #ffc107;
+      color: #212529;
+    }
+    
+    .btn-edit:hover {
+      background: #e0a800;
+    }
+    
+    .btn-pdf {
+      background: #dc3545;
+      color: white;
+    }
+    
+    .btn-pdf:hover {
+      background: #c82333;
+    }
+    
+    .view-all-btn {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .view-all-btn a {
+      background: #002147;
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .view-all-btn a:hover {
+      background: #c8102e;
+      transform: scale(1.05);
+    }
+    
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+    
+    .pdf-modal-content {
+      position: relative;
+      margin: 2% auto;
+      width: 90%;
+      height: 90%;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .pdf-modal-header {
+      background: #002147;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .pdf-close {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    
+    .pdf-close:hover {
+      color: #c8102e;
+    }
+    
+    .pdf-viewer {
+      width: 100%;
+      height: calc(100% - 60px);
+      border: none;
+    }
+    
+    .no-courses {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+    
+    .database-notice {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      color: #856404;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .database-notice a {
+      color: #002147;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    .database-notice a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2><i class="fas fa-anchor"></i> CG-12 Admin</h2>
+    <ul>
+      <li><a href="admin-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li><a href="manage-users.php"><i class="fas fa-users"></i> Manage Users</a></li>
+      <li><a href="manage-courses.php"><i class="fas fa-graduation-cap"></i> Manage Courses</a></li>
+      <li><a href="course-catalog.php"><i class="fas fa-book"></i> Course Catalog</a></li>
+      <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+      <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <h1><i class="fas fa-user-shield"></i> Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
+      <p>PCG CG-12 Education & Training Administration Dashboard</p>
+    </div>
+
+    <?php if (!$has_new_structure): ?>
+      <div class="database-notice">
+        <strong>Database Update Required:</strong> 
+        <a href="safe_database_update.php">Click here to update your database</a> for full course management features.
+      </div>
+    <?php endif; ?>
+
+    <!-- Enhanced Statistics -->
+    <div class="enhanced-stats">
+      <div class="enhanced-stat-card">
+        <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="stat-number"><?php echo $stats['total_courses']; ?></div>
+        <div class="stat-label">Total Courses</div>
+      </div>
+      <div class="enhanced-stat-card">
+        <div class="stat-icon"><i class="fas fa-home"></i></div>
+        <div class="stat-number"><?php echo $stats['local_courses']; ?></div>
+        <div class="stat-label">Local Training</div>
+      </div>
+      <div class="enhanced-stat-card">
+        <div class="stat-icon"><i class="fas fa-globe"></i></div>
+        <div class="stat-number"><?php echo $stats['foreign_courses']; ?></div>
+        <div class="stat-label">Foreign Training</div>
+      </div>
+      <div class="enhanced-stat-card">
+        <div class="stat-icon"><i class="fas fa-handshake"></i></div>
+        <div class="stat-number"><?php echo $stats['unit_courses']; ?></div>
+        <div class="stat-label">Unit/Interagency</div>
+      </div>
+      <div class="enhanced-stat-card">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-number"><?php echo $users_count; ?></div>
+        <div class="stat-label">System Users</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <div class="action-card">
+        <i class="fas fa-users"></i>
+        <h3>Manage Users</h3>
+        <p>Add, edit, or remove system users and manage access permissions</p>
+        <a href="manage-users.php" class="action-btn">Manage Users</a>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>Manage Courses</h3>
+        <p>Create, update, and organize training courses and programs</p>
+        <a href="manage-courses.php" class="action-btn">Manage Courses</a>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-book"></i>
+        <h3>Course Catalog</h3>
+        <p>Browse and view all available training programs and materials</p>
+        <a href="course-catalog.php" class="action-btn">View Catalog</a>
+      </div>
+      <div class="action-card">
+        <i class="fas fa-chart-bar"></i>
+        <h3>Reports</h3>
+        <p>Generate training reports and analytics for management review</p>
+        <a href="reports.html" class="action-btn">View Reports</a>
+      </div>
+    </div>
+
+    <!-- Available Courses Preview -->
+    <div class="courses-preview">
+      <h2><i class="fas fa-book-open"></i> Recent Courses</h2>
+      
+      <?php if ($courses_result && $courses_result->num_rows > 0): ?>
+        <div class="course-preview-grid">
+          <?php while($course = $courses_result->fetch_assoc()): ?>
+            <div class="course-preview-card">
+              <div class="course-title"><?php echo htmlspecialchars($course['course_name']); ?></div>
+              
+              <div class="course-meta">
+                <?php if (isset($course['training_type'])): ?>
+                  <span><i class="fas fa-tag"></i> <?php echo htmlspecialchars($course['training_type']); ?></span>
+                <?php endif; ?>
+                <?php if (isset($course['duration']) && $course['duration']): ?>
+                  <span><i class="fas fa-clock"></i> <?php echo htmlspecialchars($course['duration']); ?></span>
+                <?php endif; ?>
+                <?php if (isset($course['capacity'])): ?>
+                  <span><i class="fas fa-users"></i> <?php echo htmlspecialchars($course['capacity']); ?> students</span>
+                <?php endif; ?>
+              </div>
+              
+              <?php if (isset($course['description']) && $course['description']): ?>
+                <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">
+                  <?php echo htmlspecialchars(substr($course['description'], 0, 100)) . (strlen($course['description']) > 100 ? '...' : ''); ?>
+                </p>
+              <?php endif; ?>
+              
+              <div class="course-actions">
+                <button class="btn-small btn-view" onclick="viewCourse(<?php echo $course['id']; ?>)">
+                  <i class="fas fa-eye"></i> View
+                </button>
+                <button class="btn-small btn-edit" onclick="editCourse(<?php echo $course['id']; ?>)">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <?php if (isset($course['file_attachment']) && $course['file_attachment']): ?>
+                  <button class="btn-small btn-pdf" onclick="viewPDF('<?php echo htmlspecialchars($course['file_attachment']); ?>', '<?php echo htmlspecialchars($course['course_name']); ?>')">
+                    <i class="fas fa-file-pdf"></i> PDF
+                  </button>
+                <?php endif; ?>
+              </div>
+            </div>
+          <?php endwhile; ?>
+        </div>
+        
+        <div class="view-all-btn">
+          <a href="manage-courses.php"><i class="fas fa-arrow-right"></i> View All Courses</a>
+        </div>
+      <?php else: ?>
+        <div class="no-courses">
+          <i class="fas fa-graduation-cap" style="font-size: 4em; color: #ddd; margin-bottom: 20px;"></i>
+          <h3>No Courses Available</h3>
+          <p>Start by adding some courses to the system.</p>
+          <a href="manage-courses.php" class="action-btn">Add Courses</a>
+        </div>
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <!-- PDF Modal -->
+  <div id="pdfModal" class="pdf-modal">
+    <div class="pdf-modal-content">
+      <div class="pdf-modal-header">
+        <h3 id="pdfTitle">Course Material</h3>
+        <span class="pdf-close" onclick="closePDFModal()">&times;</span>
+      </div>
+      <iframe id="pdfViewer" class="pdf-viewer" src=""></iframe>
+    </div>
+  </div>
+
+  <script>
+    function viewCourse(id) {
+      window.open('course-details.php?id=' + id, '_blank');
+    }
+
+    function editCourse(id) {
+      window.location.href = 'manage-courses.php?edit=' + id;
+    }
+
+    function viewPDF(filename, courseName) {
+      const modal = document.getElementById('pdfModal');
+      const viewer = document.getElementById('pdfViewer');
+      const title = document.getElementById('pdfTitle');
+      
+      title.textContent = courseName + ' - Course Material';
+      viewer.src = 'uploads/courses/' + filename;
+      modal.style.display = 'block';
+    }
+
+    function closePDFModal() {
+      const modal = document.getElementById('pdfModal');
+      const viewer = document.getElementById('pdfViewer');
+      
+      modal.style.display = 'none';
+      viewer.src = '';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('pdfModal');
+      if (event.target == modal) {
+        closePDFModal();
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closePDFModal();
+      }
+    });
+  </script>
+</body>
+</html>

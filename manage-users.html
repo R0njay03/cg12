@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | PCG CG-12</title>
+    <link rel="stylesheet" href="admin-style-enhanced.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .user-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #002147;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #002147;
+            box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+        }
+        
+        .users-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, #002147 0%, #004080 100%);
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-header h2 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5em;
+        }
+        
+        .user-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 120px;
+            gap: 20px;
+            padding: 25px;
+            border-bottom: 1px solid #e9ecef;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .user-row:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .user-info h4 {
+            margin: 0 0 8px 0;
+            color: #002147;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-role {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .role-admin {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+        }
+        
+        .role-user {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            color: #0c5460;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-delete {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+        }
+        
+        .toggle-form {
+            background: linear-gradient(135deg, #002147 0%, #004080 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+        }
+        
+        .toggle-form:hover {
+            background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+        }
+        
+        .form-container {
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+        
+        .form-container.active {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 4px solid #002147;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .stat-icon {
+            font-size: 3em;
+            color: #002147;
+            margin-bottom: 15px;
+        }
+        
+        .stat-number {
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #c8102e;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #002147 0%, #004080 100%);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #c8102e 0%, #a00d26 100%);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+        }
+        
+        .no-users {
+            text-align: center;
+            padding: 60px 40px;
+            color: #666;
+        }
+        
+        .no-users i {
+            font-size: 5em;
+            color: #ddd;
+            margin-bottom: 25px;
+        }
+        
+        .no-users h3 {
+            color: #002147;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .protected-user {
+            color: #28a745;
+            font-weight: 600;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2><i class="fas fa-anchor"></i> CG-12 Admin</h2>
+        <ul>
+            <li><a href="admin-dashboard-enhanced.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="manage-users.html" class="active"><i class="fas fa-users"></i> Manage Users</a></li>
+            <li><a href="manage-courses.php"><i class="fas fa-graduation-cap"></i> Manage Courses</a></li>
+            <li><a href="course-materials.php"><i class="fas fa-file-pdf"></i> Course Materials</a></li>
+            <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1><i class="fas fa-users"></i> User Management</h1>
+            <p>Manage system users and access permissions for the PCG CG-12 training system</p>
+        </header>
+
+        <!-- Statistics -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number">5</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
+                <div class="stat-number">2</div>
+                <div class="stat-label">Administrators</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-user"></i></div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">Regular Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-number">24</div>
+                <div class="stat-label">Hours Active</div>
+            </div>
+        </div>
+
+        <!-- Add User Form -->
+        <button class="toggle-form" onclick="toggleForm()">
+            <i class="fas fa-plus"></i> Add New User
+        </button>
+
+        <div class="form-container" id="userForm">
+            <div class="user-form">
+                <h2><i class="fas fa-user-plus"></i> Add New User</h2>
+                <p style="color: #666; margin-bottom: 25px;">Create a new user account for the PCG CG-12 training system</p>
+                
+                <form id="addUserForm" onsubmit="handleAddUser(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="username"><i class="fas fa-user"></i> Username</label>
+                            <input type="text" id="username" name="username" required placeholder="Enter username">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password"><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="password" name="password" required placeholder="Enter password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="role"><i class="fas fa-user-tag"></i> Role</label>
+                            <select id="role" name="role" required>
+                                <option value="">Select Role</option>
+                                <option value="admin">Administrator</option>
+                                <option value="user">Regular User</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i> Add User
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Users List -->
+        <div class="users-table">
+            <div class="table-header">
+                <h2><i class="fas fa-list"></i> System Users</h2>
+                <span style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; font-weight: 600;">5 users</span>
+            </div>
+            
+            <!-- Sample Users -->
+            <div class="user-row">
+                <div class="user-info">
+                    <h4><i class="fas fa-user"></i> admin</h4>
+                    <small style="color: #28a745; font-weight: 600;">(Current User)</small>
+                </div>
+                
+                <div>
+                    <span class="user-role role-admin">
+                        <i class="fas fa-user-shield"></i>
+                        Administrator
+                    </span>
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    <i class="fas fa-calendar"></i>
+                    Jan 15, 2025
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    ID: 1
+                </div>
+                
+                <div class="user-actions">
+                    <span class="protected-user">
+                        <i class="fas fa-shield-alt"></i> Protected
+                    </span>
+                </div>
+            </div>
+
+            <div class="user-row">
+                <div class="user-info">
+                    <h4><i class="fas fa-user"></i> training_officer</h4>
+                </div>
+                
+                <div>
+                    <span class="user-role role-admin">
+                        <i class="fas fa-user-shield"></i>
+                        Administrator
+                    </span>
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    <i class="fas fa-calendar"></i>
+                    Jan 14, 2025
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    ID: 2
+                </div>
+                
+                <div class="user-actions">
+                    <button class="btn-delete" onclick="deleteUser(2)">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="user-row">
+                <div class="user-info">
+                    <h4><i class="fas fa-user"></i> instructor1</h4>
+                </div>
+                
+                <div>
+                    <span class="user-role role-user">
+                        <i class="fas fa-user"></i>
+                        Regular User
+                    </span>
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    <i class="fas fa-calendar"></i>
+                    Jan 13, 2025
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    ID: 3
+                </div>
+                
+                <div class="user-actions">
+                    <button class="btn-delete" onclick="deleteUser(3)">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="user-row">
+                <div class="user-info">
+                    <h4><i class="fas fa-user"></i> coordinator</h4>
+                </div>
+                
+                <div>
+                    <span class="user-role role-user">
+                        <i class="fas fa-user"></i>
+                        Regular User
+                    </span>
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    <i class="fas fa-calendar"></i>
+                    Jan 12, 2025
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    ID: 4
+                </div>
+                
+                <div class="user-actions">
+                    <button class="btn-delete" onclick="deleteUser(4)">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="user-row">
+                <div class="user-info">
+                    <h4><i class="fas fa-user"></i> staff_member</h4>
+                </div>
+                
+                <div>
+                    <span class="user-role role-user">
+                        <i class="fas fa-user"></i>
+                        Regular User
+                    </span>
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    <i class="fas fa-calendar"></i>
+                    Jan 11, 2025
+                </div>
+                
+                <div style="color: #666; font-size: 0.9em;">
+                    ID: 5
+                </div>
+                
+                <div class="user-actions">
+                    <button class="btn-delete" onclick="deleteUser(5)">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Note about PHP version -->
+        <div style="background: #e8f4f8; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+            <h3 style="color: #002147; margin-bottom: 10px;"><i class="fas fa-info-circle"></i> Note</h3>
+            <p style="color: #666; margin-bottom: 15px;">This is the HTML version for demonstration. For full functionality with database integration, use:</p>
+            <a href="manage-users.php" style="background: #002147; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-database"></i> PHP Version with Database
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const form = document.getElementById('userForm');
+            form.classList.toggle('active');
+        }
+
+        function handleAddUser(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            
+            if (!username || !password || !role) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Simulate adding user
+            alert(`User "${username}" would be added with role "${role}". \n\nNote: This is the HTML demo version. Use manage-users.php for actual database functionality.`);
+            
+            // Reset form
+            document.getElementById('addUserForm').reset();
+            toggleForm();
+        }
+
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                alert(`User with ID ${userId} would be deleted. \n\nNote: This is the HTML demo version. Use manage-users.php for actual database functionality.`);
+            }
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate stat cards on load
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Add CSS for fade in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personnel Upload Instructions - PCG CG-12</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #002147 0%, #1e3a8a 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #002147;
+        }
+        
+        .section h3 {
+            color: #002147;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #002147 0%, #1e3a8a 100%);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 10px 5px;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ffeaa7;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background: #002147;
+            color: white;
+        }
+        
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>📊 Personnel Upload Instructions</h1>
+        <p>PCG CG-12 Training Management System</p>
+    </div>
+    
+    <div class="content">
+        <a href="manage_personnel.php" class="btn">← Back to Manage Personnel</a>
+        
+        <div class="section">
+            <h3>📋 File Format Requirements</h3>
+            <p>You can upload personnel data using Excel (.xlsx, .xls) or CSV files. The file must contain the following columns in order:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>Rank</strong></td>
+                        <td>Military rank (e.g., Commander, Lieutenant, Petty Officer 3)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>Last Name</strong></td>
+                        <td>Personnel's last name</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>First Name</strong></td>
+                        <td>Personnel's first name</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>Unit Code</strong></td>
+                        <td>Unit identifier (e.g., CG-HQ, CG-DV, CG-SB)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>Category</strong></td>
+                        <td>Must be either "Officer" or "Non-Officer"</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>Remarks</strong></td>
+                        <td>Additional notes or comments</td>
+                        <td>No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h3>📥 Download Template</h3>
+            <p>Download the sample CSV template to see the correct format:</p>
+            <a href="personnel_template.csv" class="btn" download>📄 Download CSV Template</a>
+        </div>
+        
+        <div class="section">
+            <h3>⚠️ Important Notes</h3>
+            <div class="warning">
+                <strong>File Format:</strong>
+                <ul>
+                    <li>CSV files are recommended for best compatibility</li>
+                    <li>Excel files require PhpSpreadsheet library (may not be available on all servers)</li>
+                    <li>First row should contain column headers</li>
+                    <li>Use commas to separate values in CSV files</li>
+                </ul>
+            </div>
+            
+            <div class="success">
+                <strong>Data Processing:</strong>
+                <ul>
+                    <li>Duplicate records (same last name, first name, unit code) will be updated</li>
+                    <li>Invalid categories will default to "Non-Officer"</li>
+                    <li>Empty fields will be handled gracefully</li>
+                    <li>Upload progress and results will be displayed</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>🔧 Troubleshooting</h3>
+            <p><strong>Common Issues:</strong></p>
+            <ul>
+                <li><strong>File not uploading:</strong> Check file size and format (.xlsx, .xls, .csv only)</li>
+                <li><strong>Data not importing:</strong> Verify column order and required fields</li>
+                <li><strong>Excel file errors:</strong> Try converting to CSV format</li>
+                <li><strong>Duplicate entries:</strong> System will update existing records automatically</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="manage_personnel.php" class="btn">🚀 Go to Manage Personnel</a>
+            <a href="admin-dashboard.html" class="btn">🏠 Admin Dashboard</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html> 
