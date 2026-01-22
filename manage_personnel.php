@@ -257,6 +257,88 @@ if ($is_admin && isset($_POST['upload_excel'])) {
     }
 }
 
+// Handle Add Personnel
+if ($is_admin && isset($_POST['add_personnel'])) {
+    $rank = trim($_POST['rank']);
+    $lastname = trim($_POST['lastname']);
+    $firstname = trim($_POST['firstname']);
+    $mi = trim($_POST['mi']);
+    $serial_number = trim($_POST['serial_number']);
+    $unit_code = trim($_POST['unit_code']);
+    $sub_unit = trim($_POST['sub_unit']);
+    $category = trim($_POST['category']);
+    
+    // Validate required fields
+    if (empty($rank) || empty($lastname) || empty($firstname) || empty($serial_number) || empty($unit_code) || empty($category)) {
+        $add_message = "Please fill in all required fields.";
+        $add_success = false;
+    } else {
+        // Prepare optional fields based on category
+        $cgmc_cgnoc_class = trim($_POST['cgmc_cgnoc_class'] ?? '');
+        $specialization = trim($_POST['specialization'] ?? '');
+        $functional_course = trim($_POST['functional_course'] ?? '');
+        $blmc_almc_cgnoac = trim($_POST['blmc_almc_cgnoac'] ?? '');
+        $cgnosec = trim($_POST['cgnosec'] ?? '');
+        $original_enlistment = trim($_POST['original_enlistment'] ?? '');
+        $date_entered_service = trim($_POST['date_entered_service'] ?? '');
+        $comp_ret = trim($_POST['comp_ret'] ?? '');
+        $last_promotion_date = trim($_POST['last_promotion_date'] ?? '');
+        
+        // Officer specific fields
+        $cgoc_class = trim($_POST['cgoc_class'] ?? '');
+        $cgscc_class = trim($_POST['cgscc_class'] ?? '');
+        $cgsc_class = trim($_POST['cgsc_class'] ?? '');
+        $cgec_class = trim($_POST['cgec_class'] ?? '');
+        $third_level_career = trim($_POST['third_level_career'] ?? '');
+        
+        // Common fields
+        $seminars_workshops = trim($_POST['seminars_workshops'] ?? '');
+        $remarks = trim($_POST['remarks'] ?? '');
+        
+        // Convert empty dates to NULL
+        $original_enlistment = $original_enlistment ?: null;
+        $date_entered_service = $date_entered_service ?: null;
+        $last_promotion_date = $last_promotion_date ?: null;
+        
+        try {
+            $stmt = $conn->prepare("INSERT INTO personnel (
+                rank, lastname, firstname, mi, serial_number, unit_code, sub_unit, category,
+                cgmc_cgnoc_class, specialization, functional_course, blmc_almc_cgnoac, cgnosec,
+                original_enlistment, date_entered_service, comp_ret, last_promotion_date,
+                cgoc_class, cgscc_class, cgsc_class, cgec_class, third_level_career,
+                seminars_workshops, remarks
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            
+            $stmt->bind_param("ssssssssssssssssssssssss", 
+                $rank, $lastname, $firstname, $mi, $serial_number, $unit_code, $sub_unit, $category,
+                $cgmc_cgnoc_class, $specialization, $functional_course, $blmc_almc_cgnoac, $cgnosec,
+                $original_enlistment, $date_entered_service, $comp_ret, $last_promotion_date,
+                $cgoc_class, $cgscc_class, $cgsc_class, $cgec_class, $third_level_career,
+                $seminars_workshops, $remarks
+            );
+            
+            if ($stmt->execute()) {
+                $add_message = "Personnel record added successfully for {$firstname} {$lastname}.";
+                $add_success = true;
+                
+                // Redirect to refresh the page and show the new record
+                header("Location: manage_personnel.php?added=1");
+                exit();
+            } else {
+                $add_message = "Error adding personnel record: " . $stmt->error;
+                $add_success = false;
+            }
+        } catch (Exception $e) {
+            if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                $add_message = "Error: Personnel with serial number {$serial_number} already exists.";
+            } else {
+                $add_message = "Error adding personnel record: " . $e->getMessage();
+            }
+            $add_success = false;
+        }
+    }
+}
+
 // Handle Personnel Update
 if (isset($_POST['update_personnel'])) {
     $personnel_id = (int)$_POST['personnel_id'];
@@ -871,7 +953,7 @@ $non_officer_count = $conn->query("SELECT COUNT(*) as count FROM personnel WHERE
                     <small>
                         <i class="fas fa-info-circle"></i> 
                         Supported formats: Excel (.xlsx, .xls) or CSV. 
-                        <a href="personnel_upload_instructions.html" target="_blank">View Instructions</a>
+                        <a href="personnel_upload_instructions_enhanced.html" target="_blank">View Instructions</a>
                     </small>
                 </div>
             </div>
@@ -896,6 +978,18 @@ $non_officer_count = $conn->query("SELECT COUNT(*) as count FROM personnel WHERE
             </div>
         <?php endif; ?>
         
+        <?php if (isset($add_message)): ?>
+            <div class="message <?= $add_success ? 'success' : 'error' ?>">
+                <?= htmlspecialchars($add_message) ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if (isset($_GET['added']) && $_GET['added'] == '1'): ?>
+            <div class="message success">
+                Personnel record has been successfully added to the database.
+            </div>
+        <?php endif; ?>
+        
         <!-- Statistics -->
         <div class="stats">
             <div class="stat-card">
@@ -915,6 +1009,15 @@ $non_officer_count = $conn->query("SELECT COUNT(*) as count FROM personnel WHERE
                 <div class="stat-label">Total Personnel</div>
             </div>
         </div>
+        
+        <?php if ($is_admin): ?>
+        <!-- Add Personnel Section -->
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="btn btn-success" onclick="openAddModal()" style="padding: 12px 24px; font-size: 16px;">
+                <i class="fas fa-plus"></i> Add New Personnel
+            </button>
+        </div>
+        <?php endif; ?>
         
         <!-- Officers Section -->
         <h3 class="section-title">👔 Officers (<?= $officer_count ?>) - General Line & Technical</h3>
@@ -1249,6 +1352,183 @@ $non_officer_count = $conn->query("SELECT COUNT(*) as count FROM personnel WHERE
     </div>
 </div>
 
+<!-- Add Personnel Modal -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddModal()">&times;</span>
+        <h2>Add New Personnel</h2>
+        
+        <form method="POST" style="max-width: 100%;">
+            <input type="hidden" name="add_personnel" value="1">
+            
+            <!-- Basic Information -->
+            <h4 style="margin: 20px 0 10px 0; color: #002147;">Basic Information</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="add_rank">Rank *</label>
+                    <select id="add_rank" name="rank" required>
+                        <option value="">Select Rank</option>
+                        <option value="Commander">Commander</option>
+                        <option value="Lieutenant">Lieutenant</option>
+                        <option value="Lieutenant Junior Grade">Lieutenant Junior Grade</option>
+                        <option value="Chief Petty Officer">Chief Petty Officer</option>
+                        <option value="Petty Officer 1">Petty Officer 1</option>
+                        <option value="Petty Officer 2">Petty Officer 2</option>
+                        <option value="Petty Officer 3">Petty Officer 3</option>
+                        <option value="Seaman">Seaman</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="add_category">Category *</label>
+                    <select id="add_category" name="category" required onchange="toggleAddFields()">
+                        <option value="">Select Category</option>
+                        <option value="Officer">Officer</option>
+                        <option value="Non-Officer">Non-Officer</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="add_lastname">Last Name *</label>
+                    <input type="text" id="add_lastname" name="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="add_firstname">First Name *</label>
+                    <input type="text" id="add_firstname" name="firstname" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="add_mi">Middle Initial</label>
+                    <input type="text" id="add_mi" name="mi" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="add_serial_number">Serial Number *</label>
+                    <input type="text" id="add_serial_number" name="serial_number" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="add_unit_code">Unit Code *</label>
+                    <select id="add_unit_code" name="unit_code" required>
+                        <option value="">Select Unit</option>
+                        <option value="CG-HQ">CG Headquarters</option>
+                        <option value="CG-NCR">CG District NCR</option>
+                        <option value="CG-DV">CG District Visayas</option>
+                        <option value="CG-DM">CG District Mindanao</option>
+                        <option value="CG-SD">CG Station Davao</option>
+                        <option value="CG-SB">CG Station Batangas</option>
+                        <option value="CG-SC">CG Station Cebu</option>
+                        <option value="CG-SM">CG Station Manila</option>
+                        <option value="CG-SP">CG Station Palawan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="add_sub_unit">Sub-Unit</label>
+                    <input type="text" id="add_sub_unit" name="sub_unit">
+                </div>
+            </div>
+
+            <!-- Officer Fields -->
+            <div id="add_officer_fields" style="display: none;">
+                <h4 style="margin: 20px 0 10px 0; color: #002147;">Officer Training & Career</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add_cgoc_class">CGOC Class</label>
+                        <input type="text" id="add_cgoc_class" name="cgoc_class">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_cgscc_class">CGSCC Class</label>
+                        <input type="text" id="add_cgscc_class" name="cgscc_class">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add_cgsc_class">CGSC Class</label>
+                        <input type="text" id="add_cgsc_class" name="cgsc_class">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_cgec_class">CGEC Class</label>
+                        <input type="text" id="add_cgec_class" name="cgec_class">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="add_third_level_career">Third Level Career Course</label>
+                    <input type="text" id="add_third_level_career" name="third_level_career">
+                </div>
+            </div>
+
+            <!-- Non-Officer Fields -->
+            <div id="add_non_officer_fields" style="display: none;">
+                <h4 style="margin: 20px 0 10px 0; color: #002147;">Non-Officer Training & Career</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add_cgmc_cgnoc_class">CGMC/CGNOC Class</label>
+                        <input type="text" id="add_cgmc_cgnoc_class" name="cgmc_cgnoc_class">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_specialization">Specialization</label>
+                        <input type="text" id="add_specialization" name="specialization">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add_functional_course">Functional Course</label>
+                        <input type="text" id="add_functional_course" name="functional_course">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_blmc_almc_cgnoac">BLMC/ALMC/CGNOAC</label>
+                        <input type="text" id="add_blmc_almc_cgnoac" name="blmc_almc_cgnoac">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add_cgnosec">CGNOSEC</label>
+                        <input type="text" id="add_cgnosec" name="cgnosec">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_comp_ret">CompRet</label>
+                        <input type="text" id="add_comp_ret" name="comp_ret">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add_original_enlistment">Original Enlistment</label>
+                        <input type="date" id="add_original_enlistment" name="original_enlistment">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_date_entered_service">Date Entered Service</label>
+                        <input type="date" id="add_date_entered_service" name="date_entered_service">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="add_last_promotion_date">Last Promotion Date</label>
+                    <input type="date" id="add_last_promotion_date" name="last_promotion_date">
+                </div>
+            </div>
+
+            <!-- Common Fields -->
+            <h4 style="margin: 20px 0 10px 0; color: #002147;">Additional Information</h4>
+            <div class="form-group">
+                <label for="add_seminars_workshops">Seminars/Workshops Attended</label>
+                <textarea id="add_seminars_workshops" name="seminars_workshops" rows="3" placeholder="List seminars and workshops attended..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="add_remarks">Remarks</label>
+                <textarea id="add_remarks" name="remarks" rows="3" placeholder="Additional notes or remarks..."></textarea>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn btn-success">Add Personnel</button>
+                <button type="button" onclick="closeAddModal()" class="btn btn-danger">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
 function editPersonnel(id) {
     // Fetch personnel data via AJAX and populate the form
@@ -1431,6 +1711,36 @@ function clearSearch() {
     document.getElementById('categoryFilter').value = '';
     document.getElementById('regionFilter').value = '';
     filterPersonnel();
+}
+
+// Add Personnel Modal Functions
+function openAddModal() {
+    document.getElementById('addModal').style.display = 'block';
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').style.display = 'none';
+    // Reset form
+    document.querySelector('#addModal form').reset();
+    document.getElementById('add_officer_fields').style.display = 'none';
+    document.getElementById('add_non_officer_fields').style.display = 'none';
+}
+
+function toggleAddFields() {
+    const category = document.getElementById('add_category').value;
+    const officerFields = document.getElementById('add_officer_fields');
+    const nonOfficerFields = document.getElementById('add_non_officer_fields');
+    
+    if (category === 'Officer') {
+        officerFields.style.display = 'block';
+        nonOfficerFields.style.display = 'none';
+    } else if (category === 'Non-Officer') {
+        nonOfficerFields.style.display = 'block';
+        officerFields.style.display = 'none';
+    } else {
+        officerFields.style.display = 'none';
+        nonOfficerFields.style.display = 'none';
+    }
 }
 </script>
 
